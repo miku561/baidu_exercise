@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="blank">
+    <button id="shift">左侧出</button>
+    <button id="unshift">左侧入</button>
+    <button id="pop">右侧出</button>
+    <button id="push">右侧入</button>
+    <ul id="list"></ul>
+    <script>
+        (function(){
+            var shiftOne = document.getElementById('shift');
+            var unshiftOne = document.getElementById('unshift');
+            var popOne = document.getElementById('pop');
+            var pushOne = document.getElementById('push');
+            shiftOne.onclick = optArray;
+            unshiftOne.onclick = optArray;
+            popOne.onclick = optArray;
+            pushOne.onclick = optArray;
+            //释放函数空间
+            optArray = '';
+        })();
+        function optArray(){
+            var inpVal = document.getElementById('blank');
+            //获取点击按钮的ID从而判断操作内容
+            var option = this.getAttribute('id');
+            var ulData = document.getElementById('list');
+            var liList = ulData.getElementsByTagName('li');
+            var content = '';
+            var arr = [];
+            //由于每次调用函数都要重新创建数组，数组每次都要初始化
+            for(var i = 0 ;i < liList.length;i++){
+                arr.push(liList[i].innerHTML);
+            }
+            if(option == "shift" && inpVal.value !== ''){
+                arr.shift(inpVal.value);
+            }
+            if(option == "unshift" && inpVal.value !== ''){
+                arr.unshift(inpVal.value);
+            }
+            if(option == "push" && inpVal.value !== ''){
+                arr.push(inpVal.value);
+            }
+            if(option == "pop" && inpVal.value !== ''){
+                arr.pop(inpVal.value);
+            }
+            inpVal.value = '';
+            //操作后的数据填入页面。
+            for(var i = 0;i < arr.length;i++){
+                content += '<li>'+arr[i]+'</li>';
+            }
+            ulData.innerHTML = content;
+        }
+    </script>
+</body>
+</html>
