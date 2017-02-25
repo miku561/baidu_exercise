@@ -1,0 +1,103 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="blank">
+    <button id="shift">左侧出</button>
+    <button id="unshift">左侧入</button>
+    <button id="pop">右侧出</button>
+    <button id="push">右侧入</button>
+    <button id="sort">排序</button>
+    <ul id="list">
+    </ul>
+    <script>
+        (function(){
+            var shiftOne = document.getElementById('shift');
+            var unshiftOne = document.getElementById('unshift');
+            var popOne = document.getElementById('pop');
+            var pushOne = document.getElementById('push');
+            var sortOption = document.getElementById('sort');
+            shiftOne.onclick = optArray;
+            unshiftOne.onclick = optArray;
+            popOne.onclick = optArray;
+            pushOne.onclick = optArray;
+            sortOption.onclick = function(){
+                var ulData = document.getElementById('list');
+                var liList = ulData.getElementsByTagName('li');
+                var arr = [];
+                for(var i = 0 ;i < liList.length;i++){
+                    arr.push(liList[i].getAttribute('content'));
+                }
+                for(var i = 0 ;i < arr.length;i++){
+                    for(var j = i + 1;j <arr.length;j++){
+                        if( arr[i] > arr[j]){
+                            var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+                        }
+                    }
+                }
+                var content = "";
+                for(var i = 0;i < arr.length;i++){
+                    content += '<li content="'+arr[i]+'" style="width:40px;background:red;display:inline-block;height:'+arr[i]+'px;margin-right:10px;"></li>';
+                }
+                ulData.innerHTML = content;
+        }
+            //释放函数空间
+            optArray = '';
+        })();
+        function optArray(){
+            var inpVal = document.getElementById('blank');
+            //获取点击按钮的ID从而判断操作内容
+            var option = this.getAttribute('id');
+            var ulData = document.getElementById('list');
+            var liList = ulData.getElementsByTagName('li');
+            var content = '';
+            var arr = [];
+            //由于每次调用函数都要重新创建数组，数组每次都要初始化
+            for(var i = 0 ;i < liList.length;i++){
+                arr.push(liList[i].getAttribute('content'));
+            }
+            if(option == "shift" ){
+                arr.shift(inpVal.value);
+            }
+            if(option == "unshift"){
+                if(!/^\d+$/.test(inpVal.value)){
+                    alert('请输入数字');
+                }else if(inpVal.value > 10 && inpVal.value < 100){
+                    if(arr.length > 59){
+                        alert('数量已超过60个');
+                        return 0;
+                    }
+                    arr.unshift(inpVal.value);
+                }else{
+                    alert('输入的数字必须大于10，小于100')
+                }
+            }
+            if(option == "push"){
+                if(!/^\d+$/.test(inpVal.value)){
+                    alert('请输入数字');
+                }else if(inpVal.value > 10 && inpVal.value < 100){
+                    if(arr.length > 59){
+                        alert('数量已超过60个');
+                        return 0;
+                    }
+                    arr.push(inpVal.value);
+                }else{
+                    alert('输入的数字必须大于10，小于100')
+                }
+            }
+            if(option == "pop"){
+                arr.pop(inpVal.value);
+            }
+            inpVal.value = '';
+            //操作后的数据填入页面。
+            for(var i = 0;i < arr.length;i++){
+                content += '<li content="'+arr[i]+'" style="width:40px;background:red;display:inline-block;height:'+arr[i]+'px;margin-right:10px;"></li>';
+            }
+            ulData.innerHTML = content;
+        }
+    </script>
+</body>
+</html>
