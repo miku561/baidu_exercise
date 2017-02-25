@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <textarea rows="10" id="blank"></textarea>
+    <button id="shift">左侧出</button>
+    <button id="unshift">左侧入</button>
+    <button id="pop">右侧出</button>
+    <button id="push">右侧入</button>
+    <input type="text" id="searchContent">
+    <button id="search">搜索</button>
+    <ul id="list"></ul>
+    <script>
+        (function(){
+            var shiftOne = document.getElementById('shift');
+            var unshiftOne = document.getElementById('unshift');
+            var popOne = document.getElementById('pop');
+            var pushOne = document.getElementById('push');
+            var searchBtn = document.getElementById("search");
+            shiftOne.onclick = optArray;
+            unshiftOne.onclick = optArray;
+            popOne.onclick = optArray;
+            pushOne.onclick = optArray;
+            searchBtn.onclick = searchOpt;
+
+            //释放空间
+            optArray = '';
+            searchOpt = '';
+        })();
+        function searchOpt(){
+            var searchVal = document.getElementById('searchContent').value;
+            var ulData = document.getElementById('list');
+            var liList = ulData.getElementsByTagName('li');
+            for(var i = 0 ;i < liList.length;i++){
+                var item = liList[i].innerHTML.toString();
+                if(item.indexOf(searchVal) > -1){
+                    liList[i].style.color= "#e00";
+                }
+            }
+            
+        }
+        function optArray(){
+            var inpVal = document.getElementById('blank');
+            //获取点击按钮的ID从而判断操作内容
+            var option = this.getAttribute('id');
+            var ulData = document.getElementById('list');
+            var liList = ulData.getElementsByTagName('li');
+            var content = '';
+            var arr = [];
+            //由于每次调用函数都要重新创建数组，数组每次都要初始化
+            for(var i = 0 ;i < liList.length;i++){
+                arr.push(liList[i].innerHTML);
+            }
+            if(option == "shift" && inpVal.value !== ''){
+                arr.shift(inpVal.value);
+            }
+            if(option == "unshift" && inpVal.value !== ''){
+                var valArr = inpVal.value.split(/[\,,\s,\、,\uff0c]/);
+                for(var i=0;i<valArr.length;i++){
+                    arr.unshift(valArr[i]);
+                }
+            }
+            if(option == "push" && inpVal.value !== ''){
+                var valArr = inpVal.value.split(/[\,,\s,\、,\uff0c]/);
+                for(var i=0;i<valArr.length;i++){
+                    arr.push(valArr[i]);
+                }
+            }
+            if(option == "pop" && inpVal.value !== ''){
+                arr.pop(inpVal.value);
+            }
+            inpVal.value = '';
+            //操作后的数据填入页面。
+            for(var i = 0;i < arr.length;i++){
+                content += '<li>'+arr[i]+'</li>';
+            }
+            ulData.innerHTML = content;
+        }
+    </script>
+</body>
+</html>
