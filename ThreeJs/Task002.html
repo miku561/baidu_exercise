@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="main" width="800" height="600"></canvas>
+    <script src="js/three.js"></script>
+    <script>
+        (function(){
+            var renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('main')
+            });
+            renderer.setClearColor(0xEEEEEE)
+            renderer.shadowMapEnabled = true;
+            renderer.shadowMapSoft = true;
+            var scene = new THREE.Scene();
+
+            var camera = new THREE.PerspectiveCamera(45,4/3,1,100);
+            camera.position.set(4,3,6);
+            camera.lookAt(new THREE.Vector3(0,0,0));
+             
+            var cube = new THREE.Mesh(new THREE.CubeGeometry(4,2,2),
+                new THREE.MeshLambertMaterial({
+                    color: 0xFFFFFF
+                    // wireframe: true
+                })
+            );
+            cube.castShadow = true;
+            cube.receiveShadow = true;
+            cube.position.y = 1;
+
+            var sphere = new THREE.Mesh(new THREE.TorusGeometry(2,1,300 ,100),
+                new THREE.MeshLambertMaterial({
+                    color: 0xFFFFFF
+                })
+            );
+            // sphere.position.y = -1
+            sphere.castShadow = true;
+            sphere.receiveShadow = true;
+            sphere.position.set(1.4,0,1)
+            sphere.scale.set(0.2,0.2,0.2);
+            // sphere.position.set(20,0,0)
+
+            var sphere2 = new THREE.Mesh(new THREE.TorusGeometry(2,1,300 ,100),
+                new THREE.MeshLambertMaterial({
+                    color: 0xEEEEEE
+                })
+            );
+            sphere2.castShadow = true;
+            sphere2.receiveShadow = true;
+            sphere2.position.set(-1.4,0,1)
+            sphere2.scale.set(0.2,0.2,0.2);
+
+            var plane = new THREE.Mesh(new THREE.PlaneGeometry(10,10),
+                new THREE.MeshLambertMaterial({
+                    color: 0xFFFFFF
+                })
+            );
+            plane.position.y = -0.5;
+            plane.receiveShadow = true; 
+            plane.rotation.x = -Math.PI/2;
+            scene.add(plane);
+
+            var light = new THREE.DirectionalLight();
+            light.position.set(-2,5,2);
+            light.castShadow = true;
+            light.shadowCameraNear = 3;
+            light.shadowCameraFar = 22;
+            light.shadowCameraFov = 30;
+            light.shadowCameraVisible = true;
+            light.shadowMapWidth = 1024;
+            light.shadowMapHeight = 1024;
+            light.shadowDarkneww = 0;
+            scene.add(light);
+            scene.add(sphere);
+            scene.add(sphere2);
+            scene.add(cube);
+            renderer.render(scene,camera);
+        })();
+    </script>
+</body>
+</html>
