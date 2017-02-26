@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/three.js"></script>
+</head>
+<body>
+    <canvas id="maincanvas" width="400" height="300"></canvas>
+    <script>
+        window.onload = function(){
+            var renders = new THREE.WebGLRenderer({
+                canvas: document.getElementById('maincanvas')
+            });
+            renders.setClearColor(0x000000);
+
+            var scene = new THREE.Scene();  
+            var camera = new THREE.OrthographicCamera(-2, 2, -1.5,1.5, 1, 12); 
+            camera.position.set(3, 2 , 6); 
+            camera.lookAt(new THREE.Vector3(0,0,0))
+            scene.add(camera); 
+
+            //创建长方体
+            var cube = new THREE.Mesh(new THREE.CubeGeometry(1,1,2),
+                new THREE.MeshBasicMaterial({
+                    color: 0xEEEEEE,
+                })
+            );
+
+            //设置长方体旋转
+            cube.rotation.set(0,-0.2,0)
+            
+            //创建圆环1，右边那个
+            var circle1 = new THREE.Mesh(new THREE.TorusGeometry(0.5,0.25,4,30),
+                new THREE.MeshBasicMaterial({
+                    color:0xEEEEEE,
+                })
+            );
+            //创建圆环2，左边那个
+            var circle2 = new THREE.Mesh(new THREE.TorusGeometry(0.5,0.25,4,30),
+                new THREE.MeshBasicMaterial({
+                    color:0xEEEEEE,
+                })
+            );
+
+            //设置圆环1的位置，缩放以及旋转
+            circle1.position.set(0,0.7,0);
+            circle1.scale.set(0.4,0.4,0.4);
+            circle1.rotation.set(2.8,0.3,2.5);
+
+            //设置圆环2的位置，缩放以及旋转
+            circle2.position.set(-0.9,0.3,0);
+            circle2.scale.set(0.3,0.3,0.3);
+            circle2.rotation.set(2.8,0.3,2.5)
+            
+            //场景加入长方体，两个圆环
+            scene.add(cube);
+            scene.add(circle1);
+            scene.add(circle2);
+
+            //渲染场景和相机
+            renders.render(scene,camera);    
+        };
+    </script>       
+</body>
+</html>
