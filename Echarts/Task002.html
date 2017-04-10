@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="lineCharts" style="width: 600px; height: 400px;"></div>
+	<script src="https://cdn.bootcss.com/echarts/3.5.0/echarts.min.js"></script>
+	<script>
+        var myCharts = echarts.init(document.getElementById('lineCharts'));
+
+
+        var option = {
+            title: {
+                text: '世界人口总量',
+				        subtext: '数据并非真实'
+            },
+			     tooltip: {
+                trigger: 'axis',
+				        axisPointer: {
+                    type: 'shadow'
+				        }
+			},
+			legend: {
+                data: ['Population','GDP']
+			},
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                name: '人口数',
+                type: 'category',
+				        position: 'top',
+                boundaryGap: [0, 0.01],
+                data: ['巴西','印尼','美国','印度','中国','世界人口(万)']
+            },
+            yAxis: {
+            //取消Y轴显示
+                axisLine: {
+                    show:false
+                },
+                type: 'value',
+                //数据反转
+				        inverse: true,
+                //坐标轴居右
+				        position: "right"
+            },
+            series: [
+                {
+                    name: 'Population',
+                    type: 'bar',
+					itemStyle: {
+          normal: {
+            color: function (params) {
+								var colorList = ['#33748a'];
+								return colorList[params.dataIndex];
+             },
+							label: {
+                 show:false,
+								position: 'top',
+								formatter: '{b}\n{c}'
+							}
+						}
+					},
+                    data: [18203, 23489, 29034, 104970, 131744, 630230]
+                },
+                {
+                    name: 'GDP',
+                    type: 'bar',
+                    //设置数据条颜色
+				            itemStyle: {
+                        normal: {
+                            color: function (params) {
+								var color = ["#33b6e3"];
+								return color[params.dataIndex];
+                            },
+							label: {
+                                show: false,
+								position: 'top',
+								formatter: "{v}\n{c}"
+							}
+						}
+					},
+                    data: [19325, 23438, 31000, 121594, 134141, 681807]
+                }
+            ]
+		};
+        myCharts.setOption(option);
+	</script>
+</body>
+</html>
