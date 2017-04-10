@@ -5,22 +5,18 @@
 	<title>Document</title>
 </head>
 <body>
-  
-  //柱状图
-	<div id="main" style="width: 600px; height: 400px;"></div>
-  
-  //折线图
-  <div id="lineCharts" style="width: 600px; height: 400px;"></div>
+	<div id="histogram" style="width: 600px; height: 400px;"></div>
+	<div id="lineCharts" style="width: 600px; height: 400px;"></div>
 	<script src="https://cdn.bootcss.com/echarts/3.5.0/echarts.min.js"></script>
 	<script>
 		  // 基于准备好的dom，初始化echarts实例
-         var myChartOne = echarts.init(document.getElementById('histogram'));
-         var myChaerTwo = echarts.init(document.getElementById('lineCharts'));
+        var myChartOne = echarts.init(document.getElementById('histogram'));
+        var myChaerTwo = echarts.init(document.getElementById('lineCharts'));
 
         // 指定图表的配置项和数据
         var optionOne = {
             title: {
-                text: 'ECharts 入门示例'
+                text: '柱状统计图展示'
             },
             tooltip: {},
             legend: {
@@ -36,30 +32,30 @@
                 data: [5, 20, 36, 10, 10, 20]
             }]
         };
-        
-         var optionTwo = {
+
+        var optionTwo = {
             title: {
                 text: '折线统计图展示'
             },
-            tooltip: {},
-            legend: {
-                      data: "占比"
-            },
-            xAxis:{
-                      data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-            },
-            yAxis:{
-                      data: ['100件','120件','140件','150件','160件','180件','200件','210件','240件','260件','280件','300件','400件']
-            },
-            series:[{
-                      name: '衬衣16年销量',
-              type: 'line',
-                      showSymbol: false,
-                      hoverAnimation: false,
-                  data: [[0,1],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,12]]
-            }]
-          };
-		myChartOne.setOption(optionOne);
+			tooltip: {},
+			legend: {
+                data: "占比"
+			},
+			xAxis:{
+                data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+			},
+			yAxis:{
+                data: ['100件','120件','140件','150件','160件','180件','200件','210件','240件','260件','280件','300件','400件']
+			},
+			series:[{
+                name: '衬衣16年销量',
+				type: 'line',
+                showSymbol: false,
+                hoverAnimation: false,
+         		data: [[0,1],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,12]]
+			}]
+		};
+        myChartOne.setOption(optionOne);
 		myChaerTwo.setOption(optionTwo);
 	</script>
 </body>
