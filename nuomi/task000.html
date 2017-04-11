@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding:0;
+		}
+		.container{
+			position: relative;
+			width: 600px;
+			height:400px;
+			margin: 100px auto;
+		}
+		.container img{
+			width: 100%;
+			height:100%;
+		}
+		.main{
+			position: absolute;
+			display: flex;
+			width: 100%;
+			height:100%;
+			opacity:0;
+			z-index: 1;
+			align-items: center;
+			text-align: center;
+			justify-content: center;
+			flex-direction:column;
+			visibility: hidden;
+			transition: all .5s;
+		}
+		.main::before{
+			content: "";
+			height: 99%;
+			width: 0;
+			border: 3px solid #6CF;
+			border-width:  3px  0;
+			position: absolute;
+			transition: all .5s;
+			top: 0;
+		}
+		.main::after{
+			content: '';
+			height: 0;
+			width: 99%;
+			position: absolute;
+			left:0;
+			border: 3px solid #6CF;
+			border-width:  0 3px;
+			transition: all .5s;
+		}
+		.show-word{
+			color: transparent;
+			background: -webkit-linear-gradient(left, #39C5BB, #FFBFCB  25%, #39C5BB 50%, #FFBFCB   75%, #39C5BB 100%);
+			-webkit-background-clip: text;
+			background-size: 200% 100%;
+			animation: backchange 3s infinite linear;
+		}
+		.link-target{
+			text-decoration: none;
+			color: #66CCFF;
+			z-index: 2;
+		}
+		@-webkit-keyframes backchange{
+			0% {
+				background-position: 0 0 ;
+			}
+			100% {
+				background-position: -100% 0;
+			}
+		}
+
+		.container:hover img{
+			filter:blur(2px);
+		}
+		.container:hover .main{
+			opacity: 0.85;
+			visibility: visible;
+		}
+		.container:hover .main::before{
+			width: 100%;
+		}
+		.container:hover .main::after{
+			height:100%;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="main">
+			<h1 class="show-word">测试文字</h1>
+			<a  class="link-target" href="#">链接跳转</a>
+		</div>
+		<img src="http://desk.fd.zol-img.com.cn/t_s960x600c5/g3/M0A/0F/09/Cg-4WFRplp2IYqiNACQ0TQPPChQAARbPQEM84oAJDRl464.jpg" alt="IMAGE">
+	</div>
+</body>
+</html>
